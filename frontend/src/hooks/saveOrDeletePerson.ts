@@ -2,7 +2,7 @@ import { person } from "../types/person";
 import { useDeletePerson } from "./deleteUser";
 import { useSavePerson } from "./saveUser";
 
-export const useSaveOrDeletePerson = (peopleSave: (index: number) => void) => {
+export const useSaveOrDeletePerson = (changeSaveForIndex?: (index: number) => void) => {
 	const savePerson = useSavePerson(true);
 
 	const deletePerson = useDeletePerson();
@@ -17,13 +17,13 @@ export const useSaveOrDeletePerson = (peopleSave: (index: number) => void) => {
 		});
 	};
 
-	const onSave = (user: person, index: number) => {
+	const onSave = (user: person, index?: number) => {
 		if (!user.save) {
 			handleSave(user.login);
 		} else {
 			handleDelete(user?.githubID);
 		}
-		peopleSave(index);
+		if (changeSaveForIndex && index) changeSaveForIndex(index);
 	};
 
 	return { onSave };
