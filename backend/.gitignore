@@ -1,0 +1,11 @@
+node_modules
+# Keep environment variables out of version control
+.env
+
+dist
+
+# Ignore all logfiles and tempfiles.
+*.log
+
+.vscode
+

@@ -1,0 +1,40 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "scripts": {
+    "build": "node ./esbuild.config.mjs",
+    "build:minify": "node ./esbuild.config.mjs -m",
+    "preview": "node ./esbuild.config.mjs -s",
+    "start": "node ./dist/index.js --host",
+    "dev": "node ./esbuild.config.mjs -s",
+    "test": "uvu -r esbuild-register test"
+  },
+  "dependencies": {
+    "@apollo/server": "^4.8.1",
+    "@prisma/client": "^5.0.0",
+    "graphql": "16.7.1",
+    "node-fetch": "^3.3.1",
+    "wretch": "^2.6.0"
+  },
+  "devDependencies": {
+    "@es-exec/esbuild-plugin-serve": "^0.0.5",
+    "@types/node": "^20.4.3",
+    "@types/node-fetch": "^2.6.4",
+    "dotenv": "^16.3.1",
+    "esbuild": "^0.18.16",
+    "esbuild-register": "^3.4.2",
+    "prisma": "^5.0.0",
+    "testdouble": "^3.18.0",
+    "typescript": "^5.1.6",
+    "uvu": "^0.5.6"
+  },
+  "resolutions": {
+    "graphql": "^16.7.1"
+  }
+}
