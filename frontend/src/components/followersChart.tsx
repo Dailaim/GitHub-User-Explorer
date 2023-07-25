@@ -1,3 +1,6 @@
+// ignorar el siguente error
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import Modal from "react-modal";
 import {
 	Bar,
@@ -9,7 +12,6 @@ import {
 	YAxis,
 } from "recharts";
 import "tailwindcss/tailwind.css";
-import { person } from "../types/person";
 
 Modal.setAppElement("#root");
 
@@ -18,17 +20,14 @@ export function FollowersChart({
 	active,
 	onRequestClose,
 }: {
-	users: person[];
+	users: {
+		name: string;
+		followers: number;
+	}[];
+
 	active: boolean;
 	onRequestClose: () => void;
 }) {
-	const data = users.map((user) => {
-		return {
-			name: user.login,
-			followers: Math.floor(Math.random() * 1000) + 1,
-		};
-	});
-
 	return (
 		<Modal
 			isOpen={active}
@@ -50,7 +49,7 @@ export function FollowersChart({
 				<BarChart
 					width={500}
 					height={300}
-					data={data}
+					data={users}
 					margin={{
 						top: 5,
 						right: 30,
