@@ -20,7 +20,7 @@ const searchSchema = z
 export function Home() {
 	const { isError, isLoading, reexecute } = useListSearchPeople();
 
-	const [notValite, setNotValite] = useState<null | string>(null);
+	const [notValide, setNotValide] = useState<null | string>(null);
 
 	const {
 		setPeople,
@@ -34,12 +34,12 @@ export function Home() {
 
 	const [modal, setModal] = useState(false);
 
-	useAutoSearch(reexecute, search, !notValite && autoSearch, 500);
+	useAutoSearch(reexecute, search, !notValide && autoSearch, 500);
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		if (notValite) {
+		if (notValide) {
 			setPeople([]);
 			return;
 		}
@@ -52,9 +52,9 @@ export function Home() {
 	const onChange = (value: string) => {
 		const validationResult = searchSchema.safeParse(value);
 		if (!validationResult.success) {
-			setNotValite(validationResult.error.issues[0].message);
+			setNotValide(validationResult.error.issues[0].message);
 		} else {
-			setNotValite(null);
+			setNotValide(null);
 		}
 
 		if (validationResult.success && autoSearch) {
@@ -105,7 +105,7 @@ export function Home() {
 						Auto Search
 					</label>
 				</div>
-				{notValite && <ErrorMessage>{notValite}</ErrorMessage>}
+				{notValide && <ErrorMessage>{notValide}</ErrorMessage>}
 				<div>
 					<button
 						className="mt-4 mx-6 bg-blue-500 hover:bg-blue-700 text-white dark:text-gray-800 dark:bg-blue-300 dark:hover:bg-blue-200 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -150,16 +150,16 @@ export function Home() {
 							</li>
 						))}
 					</ul>
-					{people.length > 0 && (
-						<FollowersChart
-							users={people.map((person) => ({
-								name: person.login,
-								followers: person?.extended?.followers ?? 0,
-							}))}
-							active={modal}
-							onRequestClose={() => setModal(false)}
-						/>
-					)}
+					<FollowersChart
+						active={modal}
+						onRequestClose={() => {
+							setModal(false);
+						}}
+						users={people.map((person) => ({
+							name: person.login,
+							followers: person.extended?.followers ?? 0,
+						}))}
+					/>
 				</>
 			)}
 		</>
