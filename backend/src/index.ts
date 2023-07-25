@@ -6,20 +6,19 @@ import { schema } from "./schema";
 
 const server = new ApolloServer({
 	typeDefs: schema,
-	resolvers, 
-} );
+	resolvers,
+});
 
 const port = (process.env.PORT || 4000) as number;
 
 try {
 	const { url } = await startStandaloneServer(server, {
-		listen: { 
-      port: port
-    },
-    context: async () => ({
-      prisma:  prisma  ,
-    }),
-
+		listen: {
+			port: port,
+		},
+		context: async () => ({
+			prisma: prisma,
+		}),
 	});
 
 	console.log(`🚀  Server ready at: ${url}`);
