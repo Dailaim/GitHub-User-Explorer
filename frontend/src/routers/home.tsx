@@ -2,6 +2,8 @@ import { useState } from "react";
 import { z } from "zod";
 import { Card } from "../components/card";
 import { ErrorMessage } from "../components/error";
+import { FollowersChart } from "../components/followersChart";
+import { Loading } from "../components/loading";
 import { usePeopleState } from "../context/peopleListContext";
 import { useAutoSearch } from "../hooks/autoSearch";
 import { usePeopleList } from "../hooks/peopleList";
@@ -29,6 +31,8 @@ export function Home() {
 		search,
 		peopleSave,
 	} = usePeopleState();
+
+	const [modal, setModal] = useState(false);
 
 	useAutoSearch(reexecute, search, !notValite && autoSearch, 500);
 
@@ -102,43 +106,58 @@ export function Home() {
 					</label>
 				</div>
 				{notValite && <ErrorMessage>{notValite}</ErrorMessage>}
-				<button
-					className="mt-4 bg-blue-500 hover:bg-blue-700 text-white dark:text-gray-800 dark:bg-blue-300 dark:hover:bg-blue-200 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-					type="submit"
-				>
-					Search
-				</button>
+				<div>
+					<button
+						className="mt-4 mx-6 bg-blue-500 hover:bg-blue-700 text-white dark:text-gray-800 dark:bg-blue-300 dark:hover:bg-blue-200 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+						type="submit"
+					>
+						Search
+					</button>
+
+					{/* rome-ignore lint/a11y/useButtonType: <explanation> */}
+					<button
+						className="mt-4 mx-6 bg-blue-500 hover:bg-blue-700 text-white dark:text-gray-800 dark:bg-blue-300 dark:hover:bg-blue-200 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+						onClick={() => {
+							setModal(true);
+						}}
+					>
+						Show Chart
+					</button>
+				</div>
 			</form>
 
 			{isError && <ErrorMessage>Error...</ErrorMessage>}
 
-			{isLoading && (
-				<div className="flex flex-col justify-center items-center">
-					<h1 className="text-2xl first-line:font-bold text-gray-500 dark:text-gray-400">
-						Loading...
-					</h1>
-				</div>
-			)}
+			{isLoading && <Loading>Loading...</Loading>}
 
 			{!isLoading && !isError && (
-				<ul
-					role="list"
-					className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-				>
-					{people.map((person, index) => (
-						<li
-							key={person.githubID}
-							className="col-span-1 flex flex-col divide-y divide-gray-200 dark:divide-gray-700 rounded-lg bg-white dark:bg-gray-800 text-center shadow"
-						>
-							<Card
-								person={person}
-								onSave={() => {
-									onSave(person, index);
-								}}
-							/>
-						</li>
-					))}
-				</ul>
+				<>
+					<ul
+						role="list"
+						className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+					>
+						{people.map((person, index) => (
+							<li
+								key={person.githubID}
+								className="col-span-1 flex flex-col divide-y divide-gray-200 dark:divide-gray-700 rounded-lg bg-white dark:bg-gray-800 text-center shadow"
+							>
+								<Card
+									person={person}
+									onSave={() => {
+										onSave(person, index);
+									}}
+								/>
+							</li>
+						))}
+					</ul>
+					{people.length > 0 && (
+						<FollowersChart
+							users={people}
+							active={modal}
+							onRequestClose={() => setModal(false)}
+						/>
+					)}
+				</>
 			)}
 		</>
 	);
