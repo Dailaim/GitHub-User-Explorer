@@ -42,7 +42,7 @@ export const Card: FC<{ person: person; onSave?: () => void }> = ({
 						onClick={onSave}
 					>
 						<span className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-semibold text-gray-900 dark:text-gray-200">
-							{!person.save ? "Guardar" : "Eliminar"}
+							{!person.save ? "Save" : "Delete"}
 						</span>
 					</button>
 				</div>
