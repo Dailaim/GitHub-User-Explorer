@@ -4,9 +4,9 @@ import { Card } from "../components/card";
 import { ErrorMessage } from "../components/error";
 import { FollowersChart } from "../components/followersChart";
 import { Loading } from "../components/loading";
-import { usePeopleState } from "../context/peopleListContext";
+import { searchPeopleListState } from "../context/searchPeopleContext";
 import { useAutoSearch } from "../hooks/autoSearch";
-import { usePeopleList } from "../hooks/peopleList";
+import { useListSearchPeople } from "../hooks/listSearchPeopleList";
 import { useSaveOrDeletePerson } from "../hooks/saveOrDeletePerson";
 
 const searchSchema = z
@@ -18,7 +18,7 @@ const searchSchema = z
 	);
 
 export function Home() {
-	const { isError, isLoading, reexecute } = usePeopleList();
+	const { isError, isLoading, reexecute } = useListSearchPeople();
 
 	const [notValite, setNotValite] = useState<null | string>(null);
 
@@ -30,7 +30,7 @@ export function Home() {
 		setAutoSearch,
 		search,
 		peopleSave,
-	} = usePeopleState();
+	} = searchPeopleListState();
 
 	const [modal, setModal] = useState(false);
 
@@ -152,7 +152,10 @@ export function Home() {
 					</ul>
 					{people.length > 0 && (
 						<FollowersChart
-							users={people}
+							users={people.map((person) => ({
+								name: person.login,
+								followers: person?.extended?.followers ?? 0,
+							}))}
 							active={modal}
 							onRequestClose={() => setModal(false)}
 						/>
