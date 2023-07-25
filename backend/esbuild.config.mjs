@@ -1,50 +1,56 @@
-import serve from '@es-exec/esbuild-plugin-serve';
-import * as esbuild from 'esbuild';
-
-
+import serve from "@es-exec/esbuild-plugin-serve";
+import * as esbuild from "esbuild";
 
 // recibr argumentos de la linea de comandos
-const args = process.argv.slice(2)
+const args = process.argv.slice(2);
 
 // si el argumento es -w o --watch, se activa el watch mode
-const watch = args.includes('-w') || args.includes('--watch')
+const watch = args.includes("-w") || args.includes("--watch");
 
+const minify = args.includes("-m") || args.includes("--minify");
 
-// si el argumento es -d o --dev, se activa el modo de desarrollo
-const dev = args.includes('-d') || args.includes('--dev')
+const plugins = [];
 
-const minify = args.includes('-m') || args.includes('--minify')
+// si el argumento es -s o --serve, se activa el modo de desarrollo
 
+if (args.includes("--serve") || args.includes("-s")) {
+	/* 	const serverArgs = [];
 
-const plugins = []
-
-if (args.includes('--serve') || args.includes('-s')) {
-  plugins.push(serve({
-    main: 'dist/index.js',
-    runOnError: true,
-
-  }))
+	if (watch) {
+		serverArgs.push("--watch-path=src");
+	}
+ */
+	plugins.push(
+		serve({
+			main: "dist/index.js",
+			runOnError: true,
+			env: "./.env",
+		}),
+	);
 }
 
 /** @type esbuild.BuildOptions */
 const build = {
-  bundle: true,
-  minify: minify,
-  platform: 'node',
-  target: 'node18',
-  format: 'esm',
-  outdir: 'dist',
-  tsconfig: './tsconfig.json',
-  entryPoints: ['src/index.ts'],
-  packages: 'external',
-  plugins: plugins,
-  
+	bundle: true,
+	minify: minify,
+	platform: "node",
+	target: "node18",
+	format: "esm",
+	outdir: "dist",
+	tsconfig: "./tsconfig.json",
+	entryPoints: ["src/index.ts"],
+	packages: "external",
+	plugins: plugins,
+};
+
+if (watch) {
+	const ctx = await esbuild.context({ ...build });
+
+	await ctx.watch();
+	console.log("watching...");
+} else {
+	await esbuild.build({ ...build }).catch((err) => {
+		console.error(err);
+		process.exit(1);
+	});
 }
-
-
-
-await esbuild.build({...build}).catch((err) => {
-  console.error(err)
-  process.exit(1)
-})
-

@@ -12,7 +12,7 @@
     "build:minify": "node ./esbuild.config.mjs -m",
     "preview": "node ./esbuild.config.mjs -s",
     "start": "node ./dist/index.js --host",
-    "dev": "node ./esbuild.config.mjs -s",
+    "dev": "node ./esbuild.config.mjs -s -w",
     "test": "uvu -r esbuild-register test"
   },
   "dependencies": {
