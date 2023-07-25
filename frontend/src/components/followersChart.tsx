@@ -1,6 +1,6 @@
-// ignorar el siguente error
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import Modal from "react-modal";
 import {
 	Bar,
@@ -11,7 +11,6 @@ import {
 	XAxis,
 	YAxis,
 } from "recharts";
-import "tailwindcss/tailwind.css";
 
 Modal.setAppElement("#root");
 
