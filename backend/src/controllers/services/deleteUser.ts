@@ -1,8 +1,4 @@
-import { user } from "@/types/User";
-import { getUser } from "./getUser";
-
 export const deleteUser = async (parent, { githubID }, context, info) => {
-
 	const existingUser = await context.prisma.user.findUnique({
 		where: { githubID },
 	});
