@@ -26,7 +26,7 @@ const QuerySavePersonUser = gql`
   If login is true, return the mutation function to save a person by login
   If login is false, return the mutation function to save a person by user
 */
-export const useSavePerson = ( login?: boolean ) => {
+export const useFetcherSaveOrDeletePerson = ( login?: boolean ) => {
 	const [, savePersonLogin] = useMutation(QuerySavePersonLogin);
 
 	const [, savePersonUser] = useMutation(QuerySavePersonUser);

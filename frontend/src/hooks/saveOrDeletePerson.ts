@@ -1,9 +1,11 @@
 import { person } from "../types/person";
-import { useDeletePerson } from "./deleteUser";
-import { useSavePerson } from "./saveUser";
+import { useDeletePerson } from "./deletePerson";
+import { useFetcherSaveOrDeletePerson } from "./fetcherSaveOrDeletePerson";
 
-export const useSaveOrDeletePerson = (changeSaveForIndex?: (index: number) => void) => {
-	const savePerson = useSavePerson(true);
+export const useSaveOrDeletePerson = (
+	changeSaveForIndex?: (index: number) => void,
+) => {
+	const savePerson = useFetcherSaveOrDeletePerson(true);
 
 	const deletePerson = useDeletePerson();
 

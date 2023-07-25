@@ -11,7 +11,7 @@ const Query = gql`
   }
 `;
 
-export const useFetcherSavePeople = () => {
+export const useFetcherPeopleSave = () => {
 	const [result, reexecuteQuery] = useQuery({
 		query: Query,
 	});

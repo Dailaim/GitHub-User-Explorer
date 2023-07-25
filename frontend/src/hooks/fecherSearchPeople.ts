@@ -7,11 +7,14 @@ const Query = gql`
     login
     avatarUrl
     save
+    extended {
+      followers
+    }
   }
 }
 `;
 
-export const useFetcherPeople2 = (name: string) => {
+export const useFetcherSearchPeople = (name: string) => {
 	const [result, reexecuteQuery] = useQuery({
 		query: Query,
 		variables: {
@@ -27,10 +30,9 @@ export const useFetcherPeople2 = (name: string) => {
 		isLoading: fetching,
 		isError: error && !data?.searchUser,
 		error: error,
-    reexecute: reexecuteQuery,
+		reexecute: reexecuteQuery,
 	};
 };
-
 
 /* type peopleResponse = {
 	githubID: number;
@@ -39,7 +41,6 @@ export const useFetcherPeople2 = (name: string) => {
 	apiUrl: string;
 	htmlUrl: string;
 }; */
-
 
 /* 
 const fetcher = async (name: string) => {

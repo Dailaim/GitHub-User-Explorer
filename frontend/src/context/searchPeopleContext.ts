@@ -20,7 +20,7 @@ const initialState = {
 	people: [],
 };
 
-export const usePeopleState = create<Store & Actions>((set) => ({
+export const searchPeopleListState = create<Store & Actions>((set) => ({
 	...initialState,
 
 	setSearch: (val) => set({ search: val }),
