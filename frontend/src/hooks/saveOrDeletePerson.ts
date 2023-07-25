@@ -25,7 +25,7 @@ export const useSaveOrDeletePerson = (
 		} else {
 			handleDelete(user?.githubID);
 		}
-		if (changeSaveForIndex && index) changeSaveForIndex(index);
+		if (changeSaveForIndex && (index || index === 0)) changeSaveForIndex(index);
 	};
 
 	return { onSave };
