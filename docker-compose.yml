@@ -1,0 +1,46 @@
+version: "3.9"
+services:
+
+  front:
+    container_name: front
+
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+
+    environment:
+      VITE_BACK_URL: http://localhost:8080/graphql
+    ports:
+      - "3000:3000"
+    depends_on:
+      - back
+
+  back:
+    container_name: apollo-api
+
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/postgres?schema=public
+
+    ports:
+      - "8080:4000"
+    depends_on:
+      - db
+
+  db:
+    image: docker.io/library/postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    
+
+volumes:
+  db_data:
+    driver: local
