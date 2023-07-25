@@ -11,4 +11,5 @@ export type person = {
 	followers?: number;
 	following?: number;
 	save?: boolean;
+	extended?: person;
 };
