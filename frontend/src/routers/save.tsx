@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { Card } from "../components/card";
 import { useSavePeopleState } from "../context/savePeopleListContext copy";
 
+import { ErrorMessage } from "../components/error";
+import { Loading } from "../components/loading";
 import { useFetcherSavePeople } from "../hooks/peopleSaveList";
 import { useSaveOrDeletePerson } from "../hooks/saveOrDeletePerson";
 
@@ -17,26 +19,14 @@ export function Save() {
 	}, [setPeople, users]);
 
 	const { onSave } = useSaveOrDeletePerson(peopleSave);
-  
+
 	return (
 		<>
-			{isError && (
-				<div className="flex flex-col justify-center items-center">
-					<h1 className="text-2xl first-line:font-bold text-red-500 dark:text-red-400">
-						Error...
-					</h1>
-				</div>
-			)}
+			{isError && <ErrorMessage>Failed to load user</ErrorMessage>}
 
-			{isLoading && (
-				<div className="flex flex-col justify-center items-center">
-					<h1 className="text-2xl first-line:font-bold text-gray-500 dark:text-gray-400">
-						Loading...
-					</h1>
-				</div>
-			)}
+			{isLoading && <Loading>Loading...</Loading>}
 
-			{!isLoading && !isError && (
+			{!isLoading && !isError &&  (
 				<ul
 					role="list"
 					className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 my-10"
