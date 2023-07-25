@@ -15,6 +15,7 @@ export const schema = `#graphql
     save: Boolean
   }
 
+
   type UserSearchResult {
     githubID: Int!
     login: String!
@@ -22,6 +23,7 @@ export const schema = `#graphql
     apiUrl: String!
     htmlUrl: String!
     save: Boolean
+    extended: User
   }
 
   input UserInput {
@@ -36,7 +38,6 @@ export const schema = `#graphql
     followers: Int
     following: Int
   }
-
 
   input UserSearchInput {
     login: String!

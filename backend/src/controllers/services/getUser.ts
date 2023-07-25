@@ -49,12 +49,6 @@ export const getUser = async (parent, { username }, context: context, info) => {
 		throw new Error(`User ${username} not found`);
 	}
 
-	const saved = await context.prisma.user.findFirst({
-		where: {
-			githubID: response.id,
-		},
-	});
-
 	const user = {
 		githubID: response.id,
 		login: response.login,
@@ -66,7 +60,6 @@ export const getUser = async (parent, { username }, context: context, info) => {
 		apiUrl: response.url,
 		avatarUrl: response.avatar_url,
 		htmlUrl: response.html_url,
-		save: saved ? true : false,
 	};
 
 	return user;
