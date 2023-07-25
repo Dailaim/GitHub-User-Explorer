@@ -1,16 +1,16 @@
 import { useEffect } from "react";
 import { Card } from "../components/card";
-import { useSavePeopleState } from "../context/savePeopleListContext copy";
+import { useSavePeopleState } from "../context/savePeopleContext copy";
 
 import { ErrorMessage } from "../components/error";
 import { Loading } from "../components/loading";
-import { useFetcherSavePeople } from "../hooks/peopleSaveList";
+import { useFetcherPeopleSave } from "../hooks/fetcherPersonSave";
 import { useSaveOrDeletePerson } from "../hooks/saveOrDeletePerson";
 
 export function Save() {
 	const { peopleSave, setPeople, people } = useSavePeopleState();
 
-	const { isError, isLoading, people: users } = useFetcherSavePeople();
+	const { isError, isLoading, people: users } = useFetcherPeopleSave();
 
 	useEffect(() => {
 		if (users) {
@@ -26,7 +26,7 @@ export function Save() {
 
 			{isLoading && <Loading>Loading...</Loading>}
 
-			{!isLoading && !isError &&  (
+			{!isLoading && !isError && (
 				<ul
 					role="list"
 					className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 my-10"
