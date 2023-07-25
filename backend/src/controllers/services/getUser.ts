@@ -1,5 +1,6 @@
 import { context } from "@/types/serverTypes";
 import wretch from "wretch";
+import { GithubToken } from "../../const";
 
 interface githubApiResponse {
 	login: string;
@@ -34,40 +35,39 @@ interface githubApiResponse {
 }
 
 export const getUser = async (parent, { username }, context: context, info) => {
-	try {
-		const response: githubApiResponse = await wretch(
-			`https://api.github.com/users/${username}`,
-		)
-			.get()
-			.json();
+	const response: githubApiResponse = await wretch(
+		`https://api.github.com/users/${username}`,
+	)
+		.headers(GithubToken())
+		.get()
+		.error(403, () => {
+			throw new Error("Rate limit exceeded");
+		})
+		.json();
 
-		if (!response) {
-			throw new Error(`User ${username} not found`);
-		}
-
-		const saved = await context.prisma.user.findFirst({
-			where: {
-				githubID: response.id,
-			},
-		});
-
-		const user = {
-			githubID: response.id,
-			login: response.login,
-			name: response.name,
-			location: response.location,
-			publicRepos: response.public_repos,
-			followers: response.followers,
-			following: response.following,
-			apiUrl: response.url,
-			avatarUrl: response.avatar_url,
-			htmlUrl: response.html_url,
-			save: saved ? true : false,
-		};
-
-		return user;
-	} catch (err) {
-		console.error(err);
-		throw new Error(`Error fetching user ${username}`);
+	if (!response) {
+		throw new Error(`User ${username} not found`);
 	}
+
+	const saved = await context.prisma.user.findFirst({
+		where: {
+			githubID: response.id,
+		},
+	});
+
+	const user = {
+		githubID: response.id,
+		login: response.login,
+		name: response.name,
+		location: response.location,
+		publicRepos: response.public_repos,
+		followers: response.followers,
+		following: response.following,
+		apiUrl: response.url,
+		avatarUrl: response.avatar_url,
+		htmlUrl: response.html_url,
+		save: saved ? true : false,
+	};
+
+	return user;
 };
