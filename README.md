@@ -92,7 +92,7 @@ Esta es una prueba técnica para crear una aplicación utilizando tecnología de
 Para ejecutar la aplicación en local o modo desarrollo y los test ir al repositorio clonado y en sus subcarpetas de frontend y backend ejecutar con los comandos:
 
 ```
-npm run dev
+npx prisma generate && npm run dev
 ```
 
 ```
@@ -114,7 +114,6 @@ npm run build
 ```
 
 ```
-
 npm run start
 ```
 
