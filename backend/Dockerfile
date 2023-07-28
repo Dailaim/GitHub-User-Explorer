@@ -1,4 +1,3 @@
-
 FROM node:18 AS builder
 
 
@@ -26,9 +25,13 @@ WORKDIR /usr/src/app
 COPY --from=builder /app/back/node_modules ./node_modules
 COPY --from=builder /app/back/package*.json ./
 COPY --from=builder /app/back/dist ./dist
+COPY --from=builder /app/back/prisma ./prisma
+
+# Copia el script de entrada
+COPY entrypoint.sh ./entrypoint.sh
 
 EXPOSE 4000
 
-CMD [ "npm", "start" ]
-
+# Ejecuta el script de entrada
+CMD ["/bin/sh", "./entrypoint.sh"]
 
