@@ -89,32 +89,30 @@ Esta es una prueba técnica para crear una aplicación utilizando tecnología de
 
 ## Cómo Probar en Local
 
-Para ejecutar la aplicación en local o modo desarrollo y los test ir al repositorio clonado y en sus subcarpetas de frontend y backend ejecutar con los comandos:
+Para ejecutar la aplicación en modo local o desarrollo y realizar pruebas, navega al repositorio clonado y en sus subcarpetas de frontend y backend, ejecuta los siguientes comandos:
+
+### Frontend:
 
 ```
-npx prisma generate && npm run dev
+npm run dev
 ```
+
+### Backend:
+
+```
+npx prisma generate
+npx prisma db push
+npm run dev
+```
+
+Para ejecutar las pruebas del backend:
 
 ```
 npm run test
 ```
 
-Tamibén se puede ejecutar usando el docker-compose.yml que se encuentra en la raíz del repositorio con el comando:
+También puedes ejecutar la aplicación usando el archivo docker-compose.yml que se encuentra en la raíz del repositorio con el comando:
 
 ```
 docker-compose up
 ```
-
-## Cómo Probar en Producción
-
-Para ejecutar la aplicación en producción ir al repositorio clonado y en sus subcarpetas de frontend y backend ejecutar con los comandos:
-
-```
-npm run build
-```
-
-```
-npm run start
-```
-
-
