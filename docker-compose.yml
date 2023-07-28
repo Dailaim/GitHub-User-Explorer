@@ -4,7 +4,7 @@ services:
   front:
     container_name: front
 
-    build: 
+    build:
       context: ./frontend
       dockerfile: Dockerfile
 
@@ -18,7 +18,7 @@ services:
   back:
     container_name: apollo-api
 
-    build: 
+    build:
       context: ./backend
       dockerfile: Dockerfile
 
@@ -30,7 +30,7 @@ services:
       - "8080:4000"
     depends_on:
       - db
-
+    
   db:
     image: docker.io/library/postgres:latest
     environment:
@@ -40,7 +40,7 @@ services:
       - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
-    
+
 
 volumes:
   db_data:
