@@ -1,118 +1,94 @@
-# Prueba Técnica - GitHub User Explorer
+# **GitHub User Explorer** - Guía de Uso
 
-Esta es una prueba técnica para crear una aplicación utilizando tecnología de React y un servicio en Node.js para explorar información de usuarios de GitHub y guardar selecciones de usuarios en una base de datos local.
+Con **GitHub User Explorer**, puedes explorar fácilmente información sobre usuarios de GitHub y guardar tus selecciones favoritas de usuarios en una base de datos local.
 
-## Frontend
+## **Interfaz de Usuario**
 
-### Requisitos Funcionales
+### **Características Principales**
 
-1. La aplicación debe permitir la búsqueda de usuarios de GitHub utilizando el API público de GitHub.
-2. Mostrar los primeros 10 usuarios del resultado de búsqueda con su nombre de usuario y su ID.
-3. Cada perfil de usuario debe ser un enlace para navegar a una ruta con la propiedad 'user.login' como parámetro.
-4. Crear un componente independiente para leer el parámetro de la URL y obtener los datos del usuario utilizando el API de GitHub.
-5. Mostrar la imagen del usuario ('avatar_url') y otra información relevante en el componente.
-6. Validar que el texto de búsqueda sea de al menos 4 caracteres y que no permita buscar la palabra "doublevpartners".
-7. Integrar una librería de gráficos para mostrar un gráfico de barras con el número de seguidores de los 10 primeros usuarios.
-8. Incluir un componente para mostrar mensajes de error en toda la aplicación.
+1. Búsqueda de usuarios de GitHub utilizando el API oficial.
+2. Visualización de los primeros 10 resultados con nombre de usuario e ID.
+3. Acceso directo al perfil de cada usuario.
+4. Visión detallada del usuario seleccionado con imagen y otros datos.
+5. Parámetros de búsqueda ajustables.
+6. Gráfica interactiva de seguidores de los usuarios mostrados.
+7. Notificaciones integradas para una mejor experiencia del usuario.
 
-### Instrucciones de Ejecución
+### **Cómo Empezar**
 
-1. Clonar este repositorio en tu máquina local.
-2. Ir al directorio "frond" dentro del repositorio clonado.
-3. Instalar las dependencias usando el siguiente comando:
-
-   ```
-   npm install
-   ```
-
-4. Crear un archivo ".env" con base al .env.example.
-
-5. Iniciar la aplicación con el siguiente comando:
-
-   ```
-   npm preview
-   ```
-
-6. La aplicación estará disponible en <http://localhost:3000>.
-
-### Tecnologías Utilizadas
-
-- React y ReactDOM para construir interfaces de usuario
-- Urql para manejar las consultas GraphQL
-- Wouter para el enrutamiento
-- Zustand para el manejo del estado
-- Vite para el desarrollo y la construcción
-- TypeScript para añadir tipos estáticos al código
-- ESLint con varios plugins para la comprobación de la calidad del código
-- Tailwind CSS para el diseño
-
-## Backend
-
-### Requisitos Funcionales
-
-1. Crear un endpoint en Node.js para guardar la selección de un usuario mediante un botón de "Exportar".
-2. El servicio debe guardar el usuario en una base de datos local.
-3. Crear un segundo endpoint para consultar el listado de usuarios guardados en la base de datos.
-4. Utilizar un ORM para la base de datos relacional (por definir: MySQL, Postgres, etc.).
-5. Exponer el servicio mediante HTTP RESTful (valorable: GRPC y GraphQL).
-6. Aplicar las mejores prácticas de desarrollo, como validaciones de inputs, manejo de excepciones, etc.
-
-### Instrucciones de Ejecución
-
-1. Ir al directorio "backend" dentro del repositorio clonado.
-
-2. Instalar las dependencias usando el siguiente comando:
+1. Descarga el código fuente.
+2. Accede al directorio "front" en tu copia local.
+3. Prepara tu ambiente:
 
    ```
    npm install
    ```
 
-3. Iniciar el servicio con el siguiente comando:
+4. Configura las variables de entorno.
+5. Inicia la interfaz:
 
    ```
    npm preview
    ```
 
-4. El servicio estará disponible en <http://localhost:4000>.
+6. Abre en tu navegador: <http://localhost:3000>.
 
-5. Para acceder a las consultas de GraphQL, ir a <http://localhost:4000/graphql>.
+### **Herramientas Implementadas**
 
-### Tecnologías Utilizadas
+- Interfaz basada en React
+- Consultas GraphQL con Urql
+- Enrutamiento con Wouter
+- Estado con Zustand
+- Construcción y desarrollo con Vite
+- Tipos con TypeScript
+- Estilo con Tailwind CSS
+- Validación de código con ESLint
 
-- Node.js
-- PostgreSQL
-- Prisma
-- Apollo Server
-- GraphQL
-- uvu
-- testdouble
+## **Servicio Backend**
 
-## Cómo Probar en Local
+### **Funcionalidades**
 
-Para ejecutar la aplicación en modo local o desarrollo y realizar pruebas, navega al repositorio clonado y en sus subcarpetas de frontend y backend, ejecuta los siguientes comandos:
+1. Almacena selecciones de usuarios.
+2. Accede a usuarios almacenados en la base de datos.
+3. Cumple con estándares de desarrollo y seguridad.
+4. Soporta consultas HTTP RESTful y GraphQL.
 
-### Frontend:
+### **Puesta en Marcha**
 
-```
-npm run dev
-```
+1. Ve al directorio "backend".
+2. Instala las dependencias:
 
-### Backend:
+   ```
+   npm install
+   ```
 
-```
-npx prisma generate
-npx prisma db push
-npm run dev
-```
+3. Arranca el servicio:
 
-Para ejecutar las pruebas del backend:
+   ```
+   npm preview
+   ```
+
+4. Abre en tu navegador: <http://localhost:4000> o para GraphQL <http://localhost:4000/graphql>.
+
+### **Tecnologías En Uso**
+
+- Servicio en Node.js
+- Base de datos con PostgreSQL
+- ORM con Prisma
+- GraphQL con Apollo Server
+- Pruebas con uvu y testdouble
+
+## **Pruebas en Entorno Local**
+
+Para probar **GitHub User Explorer** en tu máquina, sigue los pasos en las secciones de Interfaz de Usuario y Servicio Backend.
+
+Adicionalmente, para pruebas del backend:
 
 ```
 npm run test
 ```
 
-También puedes ejecutar la aplicación usando el archivo docker-compose.yml que se encuentra en la raíz del repositorio con el comando:
+Si prefieres utilizar Docker, simplemente utiliza el archivo docker-compose.yml:
 
-```
+``` 
 docker-compose up
-```
